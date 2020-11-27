@@ -1,14 +1,24 @@
 from tkinter import *
 
-window=Tk()
+window = Tk()
 
-button1 = Button(window, text="Execute")
+
+def km_to_miles():
+    try:
+        miles = round(float(entry1_value.get()) * 1.6, 2)
+    except:
+        miles = "Not a number"
+    text1.insert(END, miles)
+
+
+button1 = Button(window, text="Execute", command=km_to_miles)
 button1.grid(row=0, column=1)
 
-entry1 = Entry(window)
+entry1_value = StringVar()
+entry1 = Entry(window, textvariable=entry1_value)
 entry1.grid(row=0, column=0)
 
-text1 = Text(window,  height=2, width=20)
+text1 = Text(window, height=1, width=15)
 text1.grid(row=1, column=0)
 
 window.mainloop()
