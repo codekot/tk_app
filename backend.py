@@ -47,11 +47,20 @@ def delete(id):
     connection.commit()
     connection.close()
 
+def update(id, title, author, year, isbn):
+    connection = sqlite3.connect(DATABASE)
+    cursor = connection.cursor()
+    cursor.execute(
+        "UPDATE book SET title=?, author=?, year=?, isbn=? WHERE id=?",
+        (title,author, year, isbn, id))
+    connection.commit()
+    connection.close()
 
 
 connect()
-#insert("The Deep", None, None, 66545647)
+#insert("The Deep", "Hocke", 2020, 66545647)
 print(view())
 #print(search(year=1999))
-delete(3)
+#delete(1)
+update(2, title="The Eaff", author="John Smooth", year=2000, isbn=12312345)
 print(view())
