@@ -58,9 +58,9 @@ def update(id, title, author, year, isbn):
 
 
 connect()
-#insert("The Deep", "Hocke", 2020, 66545647)
+#insert("The Oil", "Smith Red", 2020, 1321214)
 print(view())
 #print(search(year=1999))
 #delete(1)
-update(2, title="The Eaff", author="John Smooth", year=2000, isbn=12312345)
+#update(2, title="The Eaff", author="John Smooth", year=2000, isbn=12312345)
 print(view())

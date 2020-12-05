@@ -1,18 +1,11 @@
-"""
-A program that stores book information:
-Title, Author,
-Year, ISBN
-
-User can:
-
-View all records
-Search an entry
-Add entry
-Update entry
-Delete
-Close
-"""
 from tkinter import *
+from tkinter.font import Font
+import backend
+
+def view_command():
+	for row in backend.view():
+		listbox.insert(END, str(row)[1:-1]+"\n")
+
 
 window = Tk()
 
@@ -42,7 +35,7 @@ isbn_value = Entry(window, textvariable=StringVar())
 isbn_value.grid(row=1, column=3)
 
 # Buttons
-view_all_btn = Button(window, text="View all", width=12)
+view_all_btn = Button(window, text="View all", width=12, command=view_command)
 view_all_btn.grid(row=2, column=3)
 search_entry_btn = Button(window, text="Search entry", width=12)
 search_entry_btn.grid(row=3, column=3)
@@ -55,7 +48,9 @@ delete_btn.grid(row=6, column=3)
 close_btn = Button(window, text="Close", width=12)
 close_btn.grid(row=7, column=3)
 
+myFont = Font(family="Times New Roman", size=10)
 listbox = Text(window, height=6, width=35)
+listbox.configure(font=myFont)
 listbox.grid(row=2, column=0, rowspan=6, columnspan=2)
 
 scrollbar = Scrollbar(window)
