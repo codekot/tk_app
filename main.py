@@ -2,17 +2,24 @@ from tkinter import *
 from tkinter.font import Font
 import backend
 
-def view_command():
+def clear_listbox():
 	listbox.delete("0.0", END)
-	for row in backend.view():
-		listbox.insert(END, str(row)[1:-1]+"\n")
 
-def search_command():
-	listbox.delete("0.0", END)
+def read_values():
 	title = title_value.get()
 	author = author_value.get()
 	year = year_value.get()
 	isbn = isbn_value.get()
+	return title, author, year, isbn
+
+def view_command():
+	clear_listbox()
+	for row in backend.view():
+		listbox.insert(END, str(row)[1:-1]+"\n")
+
+def search_command():
+	clear_listbox()
+	title, author, year, isbn = read_values()
 	search_result = backend.search(title, author, year, isbn)
 	if search_result:
 		for row in search_result:
@@ -20,7 +27,18 @@ def search_command():
 	else:
 		listbox.insert(END, "Entries not found")
 
+def add_command():
+	title, author, year, isbn = read_values()
+	backend.insert(title, author, year, isbn)
+	clear_listbox()
+	listbox.insert(END, "Entry added")
 
+def delete():
+
+	
+def update_command():
+	title, author, year, isbn = read_values()
+	backend.update(title, author, year, isbn)
 
 
 window = Tk()
@@ -55,9 +73,9 @@ view_all_btn = Button(window, text="View all", width=12, command=view_command)
 view_all_btn.grid(row=2, column=3)
 search_entry_btn = Button(window, text="Search entry", width=12, command=search_command)
 search_entry_btn.grid(row=3, column=3)
-add_entry_btn = Button(window, text="Add Entry", width=12)
+add_entry_btn = Button(window, text="Add Entry", width=12, command=add_command)
 add_entry_btn.grid(row=4, column=3)
-update_btn = Button(window, text="Update", width=12)
+update_btn = Button(window, text="Update", width=12, command=update_command)
 update_btn.grid(row=5, column=3)
 delete_btn = Button(window, text="Delete", width=12)
 delete_btn.grid(row=6, column=3)
