@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter.font import Font
-import backend
+from backend import Database
 
+db = Database()
 
 def clear_widget(widget):
     widget.delete(0, END)
@@ -43,14 +44,14 @@ def get_id():
 
 def view_command():
     clear_widget(listbox)
-    for row in backend.view():
+    for row in db.view():
         listbox.insert(END, str(row)[1:-1] + "\n")
 
 
 def search_command():
     clear_widget(listbox)
     title, author, year, isbn = read_values()
-    search_result = backend.search(title, author, year, isbn)
+    search_result = db.search(title, author, year, isbn)
     if search_result:
         for row in search_result:
             listbox.insert(END, str(row)[1:-1] + "\n")
@@ -60,19 +61,19 @@ def search_command():
 
 def add_command():
     title, author, year, isbn = read_values()
-    backend.insert(title, author, year, isbn)
+    db.insert(title, author, year, isbn)
     update_widget(listbox, "Entry added")
 
 
 def delete_command():
-    backend.delete(get_id())
+    db.delete(get_id())
     view_command()
 
 
 def update_command():
     title, author, year, isbn = read_values()
     item_id = get_id()
-    backend.update(item_id, title, author, year, isbn)
+    db.update(item_id, title, author, year, isbn)
     view_command()
 
 window = Tk()
