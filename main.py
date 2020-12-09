@@ -2,7 +2,8 @@ from tkinter import *
 from tkinter.font import Font
 from backend import Database
 
-db = Database()
+DATABASE = "books.db"
+db = Database(DATABASE)
 
 def clear_widget(widget):
     widget.delete(0, END)
@@ -75,6 +76,7 @@ def update_command():
     item_id = get_id()
     db.update(item_id, title, author, year, isbn)
     view_command()
+
 
 window = Tk()
 window.wm_title("BookShelf")
